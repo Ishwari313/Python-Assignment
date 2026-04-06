@@ -1,0 +1,113 @@
+# ============================================================
+# Question 1:
+# Import DecisionTreeClassifier from sklearn.
+# Create a model object and train it using fit().
+# ============================================================
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier,plot_tree
+
+from sklearn.metrics import(
+    accuracy_score,
+    confusion_matrix,
+    classification_report,
+    ConfusionMatrixDisplay
+)
+
+Border = "-"*50
+
+# Step 1 :Load the Dataset
+
+print(Border)
+print("Step 1: Load the Dataset")
+print(Border)
+
+Datapath = "student_performance_ml.csv"
+
+df = pd.read_csv(Datapath)
+
+print("Dataset gets loaded successfully..")
+
+
+
+
+print(Border)
+print("Decides independant and dependant variables")
+print(Border)
+
+# X: independent variables
+# Y : Dependent
+
+feature_cols = [
+
+    "StudyHours",
+    "Attendance",
+    "PreviousScore",
+    "AssignmentsCompleted",
+    "SleepHours"
+]
+
+X = df[feature_cols]
+Y = df["FinalResult"]
+
+print("X shape :",X.shape)
+print("Y shape :",Y.shape)
+
+print()
+
+print(Border)
+print("Split the dataset for training and testing")
+print(Border)
+
+X_train , X_test, Y_train,Y_test= train_test_split(
+    X,Y, test_size=0.2,random_state=42
+)
+
+print("X - Independant : ",X.shape) # (150,4)
+print("Y - Dependant : ",Y.shape)   # (150,)
+
+print()
+
+print("X_train : ",X_train.shape)   # (120,4)
+print("X_test : ",X_test.shape)     # (30,4)
+
+print()
+
+print("Y_train : ",Y_train.shape)   # (120,)
+print("Y_test : ",Y_test.shape)     # (30,)
+
+print()
+
+
+print(Border)
+print("Step 6 : Build the Model")
+print(Border)
+
+model = DecisionTreeClassifier(
+    criterion="gini",
+    max_depth = 5,
+    random_state = 42
+
+)
+
+print("Model succesfully created : ",model)
+
+
+
+print(Border)
+print("Step 7 : Train the Model")
+print(Border)
+
+
+print()
+
+model.fit(X_train,Y_train)
+
+print("Model training completed...")
+
+print()
